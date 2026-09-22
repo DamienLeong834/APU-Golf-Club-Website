@@ -20,12 +20,19 @@
   .bmi-readout .cat { font-size: .95rem; font-weight: 700; }
 
   /* the submitted information list */
-  #regSummaryCard { scroll-margin-top: 90px; }   /* clears the sticky site header */
+  /* .card carries no padding of its own in this stylesheet - the form gets it
+     from `form.card { padding: 28px }` and other cards use inline padding or a
+     .card-body child. Without this the summary sat flush against the card edge.
+     28px matches the form directly above so the two read as a pair. */
+  #regSummaryCard { scroll-margin-top: 90px; padding: 28px; }
   .reg-summary { margin-top: 2px; }
   .reg-summary .row { display: flex; gap: 14px; padding: 10px 0; border-bottom: 1px solid #eceae2; }
   .reg-summary dt { flex: 0 0 40%; font-size: .85rem; font-weight: 600; color: var(--muted); }
   .reg-summary dd { flex: 1; margin: 0; font-size: .92rem; word-break: break-word; }
-  .reg-summary .row.bmi-row { margin-top: 10px; padding: 12px 14px; border-bottom: none; border-radius: 8px; background: rgba(11,107,58,.07); }
+  /* the row's own horizontal padding is cancelled by equal negative margins, so
+     the BMI label stays in the same column as every other label while the
+     highlight still insets from the card edge */
+  .reg-summary .row.bmi-row { margin: 10px -14px 0; padding: 12px 14px; border-bottom: none; border-radius: 8px; background: rgba(11,107,58,.07); }
   .reg-summary .row.bmi-row dt { color: var(--green-dark); }
   .reg-summary .row.bmi-row dd { font-size: 1.05rem; font-weight: 800; }
   @media (max-width: 520px) {
