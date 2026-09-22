@@ -7,3 +7,6 @@ desktop.ini
 
 # Course material accidentally left in the images folder - not a website asset
 images/Saample Mock Lab Test_Q.xlsx
+
+# Local Netlify folder
+.netlify

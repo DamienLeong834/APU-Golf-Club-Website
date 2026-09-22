@@ -16,13 +16,37 @@
   .bmi-category { font-size: 1.15rem; font-weight: 700; }
   .bmi-scale { margin-top: 16px; }
   .scale-bar { display: flex; width: 100%; height: 64px; border-radius: 8px; overflow: hidden; }
-  .scale-segment { display: flex; align-items: center; justify-content: center; text-align: center; color: #fff; font-size: .68rem; font-weight: 600; line-height: 1.3; transition: transform .2s; }
+  .scale-segment {
+    display: flex; align-items: center; justify-content: center; text-align: center;
+    color: #fff; font-size: .68rem; font-weight: 600; line-height: 1.3;
+    padding: 0 8px;
+    flex: 1 1 0;          /* width comes from the flex-grow ratios set below */
+    min-width: 0;
+    overflow: hidden;     /* a label can never bleed into the neighbouring segment */
+    transition: transform var(--t-base) var(--ease);
+  }
   .scale-segment span { pointer-events: none; }
   .scale-segment.active { outline: 3px solid var(--ink); outline-offset: 2px; transform: scale(1.04); z-index: 2; }
-  .scale-segment.underweight { background: #3a7ca5; }
-  .scale-segment.normal { background: var(--green-light); }
-  .scale-segment.overweight { background: var(--gold); }
-  .scale-segment.obese { background: #c0392b; flex: 1.3; }
+  /* Segment widths are proportional to the WHO BMI ranges, so the bar reads as a
+     real scale rather than an arbitrary one:
+       underweight 15-18.5 = 3.5 | normal 18.5-25 = 6.5 | overweight 25-30 = 5 | obese 30-40 = 10 */
+  .scale-segment.underweight { background: #3a7ca5; flex-grow: 3.5; }
+  .scale-segment.normal { background: var(--green-light); flex-grow: 6.5; }
+  .scale-segment.overweight { background: var(--gold); flex-grow: 5; }
+  .scale-segment.obese { background: #c0392b; flex-grow: 10; }
+  /* The category names sit under the bar rather than inside it: a proportional
+     "Underweight" segment is only ~14% wide, nowhere near enough for the word. */
+  .scale-legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 10px; }
+  .scale-legend li { display: flex; align-items: center; gap: 6px; font-size: .74rem; color: var(--muted); }
+  .scale-legend .dot { width: 10px; height: 10px; border-radius: 3px; flex: none; }
+  .scale-legend .dot.underweight { background: #3a7ca5; }
+  .scale-legend .dot.normal { background: var(--green-light); }
+  .scale-legend .dot.overweight { background: var(--gold); }
+  .scale-legend .dot.obese { background: #c0392b; }
+  /* the card gets narrow below ~1000px, so the labels tighten up to match */
+  @media (max-width: 1000px) {
+    .scale-segment { font-size: .58rem; padding: 0 2px; }
+  }
 </style>
 </head>
 <body>
@@ -68,11 +92,17 @@
 </div>
 <div class="bmi-scale">
 <div class="scale-bar">
-<div class="scale-segment underweight"><span>Underweight<br>&lt;18.5</span></div>
-<div class="scale-segment normal"><span>Normal<br>18.5-24.9</span></div>
-<div class="scale-segment overweight"><span>Overweight<br>25-29.9</span></div>
-<div class="scale-segment obese"><span>Obese<br>30+</span></div>
+<div class="scale-segment underweight"><span>&lt;18.5</span></div>
+<div class="scale-segment normal"><span>18.5-24.9</span></div>
+<div class="scale-segment overweight"><span>25-29.9</span></div>
+<div class="scale-segment obese"><span>30+</span></div>
 </div>
+<ul class="scale-legend">
+<li><i class="dot underweight"></i>Underweight</li>
+<li><i class="dot normal"></i>Normal</li>
+<li><i class="dot overweight"></i>Overweight</li>
+<li><i class="dot obese"></i>Obese</li>
+</ul>
 </div>
 <div id="bmiMessage" class="callout" style="margin-top: 20px;"></div>
 <div style="text-align: center; margin-top: 20px;">
@@ -90,12 +120,18 @@
 
 <div style="margin-top: 20px;">
 <p><strong>BMI Scale:</strong></p>
-<div class="scale-bar" style="height: 20px; margin-top: 8px;">
-<div class="scale-segment underweight">Underweight</div>
-<div class="scale-segment normal">Normal</div>
-<div class="scale-segment overweight">Overweight</div>
-<div class="scale-segment obese">Obese</div>
+<div class="scale-bar" style="height: 26px; margin-top: 8px;">
+<div class="scale-segment underweight">&lt;18.5</div>
+<div class="scale-segment normal">18.5-24.9</div>
+<div class="scale-segment overweight">25-29.9</div>
+<div class="scale-segment obese">30+</div>
 </div>
+<ul class="scale-legend">
+<li><i class="dot underweight"></i>Underweight</li>
+<li><i class="dot normal"></i>Normal</li>
+<li><i class="dot overweight"></i>Overweight</li>
+<li><i class="dot obese"></i>Obese</li>
+</ul>
 </div>
 
 <div style="margin-top: 20px;">

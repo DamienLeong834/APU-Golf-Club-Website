@@ -20,12 +20,12 @@ function initGallery() {
   imgs.forEach(function (img) {
     img.addEventListener('click', function () {
       box.src = img.src;
-      overlay.style.display = 'grid';
+      overlay.classList.add('open');
     });
   });
   overlay.addEventListener('click', function (e) {
     if (e.target === overlay || e.target.classList.contains('lb-close')) {
-      overlay.style.display = 'none';
+      overlay.classList.remove('open');
     }
   });
 }

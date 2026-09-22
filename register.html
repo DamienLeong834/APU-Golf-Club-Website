@@ -7,6 +7,32 @@
 <meta name="description" content="Registration form to join the APU Golf Club.">
 <link rel="stylesheet" href="css/style.css">
 <link rel="icon" type="image/png" href="images/GOLFCLUB.png">
+<style>
+  /* page-specific extras for registration */
+  .bmi-capture { margin: 4px 0 18px; padding: 16px; border-radius: 10px; background: rgba(11,107,58,.06); border: 1px solid rgba(11,107,58,.18); }
+  .bmi-capture h4 { color: var(--green-dark); font-size: .95rem; margin-bottom: 4px; }
+  .bmi-capture .hint { font-size: .8rem; color: var(--muted); margin-bottom: 14px; }
+  .bmi-capture .form-group:last-of-type { margin-bottom: 0; }
+  .bmi-readout { display: none; margin-top: 14px; padding: 12px 14px; border-radius: 8px; background: var(--white); border: 1px solid #e2dccd; }
+  .bmi-readout.show { display: block; }
+  .bmi-readout .lbl { font-size: .74rem; text-transform: uppercase; letter-spacing: .8px; color: var(--muted); }
+  .bmi-readout .val { font-size: 1.7rem; font-weight: 800; line-height: 1.2; }
+  .bmi-readout .cat { font-size: .95rem; font-weight: 700; }
+
+  /* the submitted information list */
+  #regSummaryCard { scroll-margin-top: 90px; }   /* clears the sticky site header */
+  .reg-summary { margin-top: 2px; }
+  .reg-summary .row { display: flex; gap: 14px; padding: 10px 0; border-bottom: 1px solid #eceae2; }
+  .reg-summary dt { flex: 0 0 40%; font-size: .85rem; font-weight: 600; color: var(--muted); }
+  .reg-summary dd { flex: 1; margin: 0; font-size: .92rem; word-break: break-word; }
+  .reg-summary .row.bmi-row { margin-top: 10px; padding: 12px 14px; border-bottom: none; border-radius: 8px; background: rgba(11,107,58,.07); }
+  .reg-summary .row.bmi-row dt { color: var(--green-dark); }
+  .reg-summary .row.bmi-row dd { font-size: 1.05rem; font-weight: 800; }
+  @media (max-width: 520px) {
+    .reg-summary .row { flex-direction: column; gap: 2px; }
+    .reg-summary dt { flex: none; }
+  }
+</style>
 </head>
 <body>
 <div class="topbar"><div class="container"><span>Asia Pacific University of Technology &amp; Innovation</span><span>Tel: +603 8996 1000 &nbsp;|&nbsp; Email: apugolfclub@apu.edu.my</span></div></div>
@@ -38,9 +64,29 @@
 <div class="radio-inline"><input type="radio" name="equip" value="Yes" checked> <label>Yes</label></div>
 <div class="radio-inline"><input type="radio" name="equip" value="Need Rental"> <label>Need Club Rental</label></div></div>
 <div class="form-group"><label>Additional Notes</label><textarea id="rNotes" rows="3"></textarea></div>
+
+<div class="bmi-capture">
+<h4>Body Metrics <span class="req">*</span></h4>
+<p class="hint">Required before your membership can be processed &mdash; we work out your BMI from these.</p>
+<div class="form-row">
+<div class="form-group"><label for="rHeight">Height (cm) <span class="req">*</span></label><input type="number" id="rHeight" min="100" max="250" step="0.1" placeholder="e.g., 170" required></div>
+<div class="form-group"><label for="rWeight">Weight (kg) <span class="req">*</span></label><input type="number" id="rWeight" min="30" max="300" step="0.1" placeholder="e.g., 65" required></div>
+</div>
+<div class="bmi-readout" id="regBmiReadout">
+<p class="lbl">Your BMI</p>
+<p class="val" id="regBmiVal">--</p>
+<p class="cat" id="regBmiCat">--</p>
+</div>
+</div>
+
 <button type="submit" class="btn btn-gold">Submit Registration</button>
 <div class="form-msg" id="regResult"></div>
 </form>
+<div class="card" id="regSummaryCard" style="display:none; margin-top:22px;">
+<h3 style="color:var(--green-dark); margin-bottom:6px;">Registration Summary</h3>
+<p style="font-size:.88rem; color:var(--muted); margin-bottom:14px;">Here is everything you submitted. Keep this for your records.</p>
+<dl class="reg-summary" id="regSummary"></dl>
+</div>
 </div>
 <div>
 <div class="section-head" style="text-align:left;"><span class="eyebrow">What happens next</span><h2 class="section-title">After You Apply</h2></div>
@@ -67,20 +113,113 @@
 </div></footer>
 
 <script>
+// ===== BMI (same thresholds as bmi.html) =====
+function bmiCategory(bmi){
+  if(bmi<18.5) return {name:'Underweight', color:'#3a7ca5'};
+  if(bmi<25)   return {name:'Normal',      color:'#1f9d57'};
+  if(bmi<30)   return {name:'Overweight',  color:'#c9a227'};
+  return         {name:'Obese',        color:'#c0392b'};
+}
+
+function readBmi(){
+  var h=parseFloat(document.getElementById('rHeight').value);
+  var w=parseFloat(document.getElementById('rWeight').value);
+  if(!(h>0)||!(w>0)) return null;
+  var m=h/100;
+  return w/(m*m);
+}
+
+function refreshBmiReadout(){
+  var readout=document.getElementById('regBmiReadout');
+  var bmi=readBmi();
+  if(bmi===null){ readout.classList.remove('show'); return; }
+  var cat=bmiCategory(bmi);
+  var val=document.getElementById('regBmiVal');
+  var catEl=document.getElementById('regBmiCat');
+  val.textContent=bmi.toFixed(1);
+  val.style.color=cat.color;
+  catEl.textContent=cat.name;
+  catEl.style.color=cat.color;
+  readout.classList.add('show');
+}
+
+document.getElementById('rHeight').addEventListener('input', refreshBmiReadout);
+document.getElementById('rWeight').addEventListener('input', refreshBmiReadout);
+
+// ===== pre-select the tier picked on membership.html =====
+(function(){
+  var wanted=new URLSearchParams(window.location.search).get('tier');
+  if(!wanted) return;
+  var sel=document.getElementById('rTier');
+  for(var i=0;i<sel.options.length;i++){
+    if(sel.options[i].value===wanted){ sel.selectedIndex=i; return; }
+  }
+})();
+
+// ===== submit =====
 function submitRegistration(e){
   e.preventDefault();
+  var res=document.getElementById('regResult');
   var name=document.getElementById('rName').value.trim();
   var id=document.getElementById('rId').value.trim();
   var email=document.getElementById('rEmail').value.trim();
   var phone=document.getElementById('rPhone').value.trim();
+  var program=document.getElementById('rProgram').value.trim();
   var tier=document.getElementById('rTier').value;
-  var exp=''; document.querySelectorAll('input[name=exp]').forEach(function(r){ if(r.checked) exp=r.value; });
-  var res=document.getElementById('regResult');
-  if(!name||!id||!email||!phone||!tier){ res.className='form-msg err'; res.textContent='Please fill in all required fields.'; return false; }
-  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ res.className='form-msg err'; res.textContent='Please enter a valid email address.'; return false; }
+  var notes=document.getElementById('rNotes').value.trim();
+  var exp='', equip='';
+  document.querySelectorAll('input[name=exp]').forEach(function(r){ if(r.checked) exp=r.value; });
+  document.querySelectorAll('input[name=equip]').forEach(function(r){ if(r.checked) equip=r.value; });
+
+  function fail(msg){ res.className='form-msg err'; res.textContent=msg; return false; }
+
+  if(!name||!id||!email||!phone||!tier) return fail('Please fill in all required fields.');
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return fail('Please enter a valid email address.');
+
+  var bmi=readBmi();
+  if(bmi===null) return fail('Please enter your height and weight so we can work out your BMI.');
+  var h=parseFloat(document.getElementById('rHeight').value);
+  var w=parseFloat(document.getElementById('rWeight').value);
+  if(h<100||h>250) return fail('Height must be between 100 and 250 cm.');
+  if(w<30||w>300)  return fail('Weight must be between 30 and 300 kg.');
+
+  var cat=bmiCategory(bmi);
+
+  // information list — built with textContent so form input can never inject markup
+  var rows=[
+    ['Name', name],
+    ['Student ID', id],
+    ['Email', email],
+    ['Phone', phone],
+    ['Intake / Programme', program||'—'],
+    ['Membership Tier', tier],
+    ['Golf Experience', exp||'—'],
+    ['Equipment', equip||'—'],
+    ['Additional Notes', notes||'—']
+  ];
+  var dl=document.getElementById('regSummary');
+  dl.textContent='';
+  rows.forEach(function(r){
+    var wrap=document.createElement('div'); wrap.className='row';
+    var dt=document.createElement('dt'); dt.textContent=r[0];
+    var dd=document.createElement('dd'); dd.textContent=r[1];
+    wrap.appendChild(dt); wrap.appendChild(dd); dl.appendChild(wrap);
+  });
+  // BMI score goes last, as the closing line of the list
+  var bmiRow=document.createElement('div'); bmiRow.className='row bmi-row';
+  var bdt=document.createElement('dt'); bdt.textContent='BMI Score';
+  var bdd=document.createElement('dd'); bdd.textContent=bmi.toFixed(1)+' ('+cat.name+')';
+  bdd.style.color=cat.color;
+  bmiRow.appendChild(bdt); bmiRow.appendChild(bdd); dl.appendChild(bmiRow);
+
   res.className='form-msg ok';
-  res.textContent='Thank you, '+name+'! Your registration for the '+tier+' tier has been received. We will contact you at '+email+' shortly.';
+  res.textContent='Thank you, '+name+'! Your '+tier+' registration has been received. We will contact you at '+email+' shortly.';
+
   document.getElementById('regForm').reset();
+  document.getElementById('regBmiReadout').classList.remove('show');
+  var card=document.getElementById('regSummaryCard');
+  card.style.display='block';
+  card.scrollIntoView({behavior:'smooth', block:'start'});
   return false;
 }
 </script>
