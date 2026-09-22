@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calendar & Events | APU Golf Club</title>
+<meta name="description" content="Events calendar for APU Golf Club - coaching, tournaments, socials and workshops.">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" type="image/png" href="images/GOLFCLUB.png">
+</head>
+<body>
+<div class="topbar"><div class="container"><span>Asia Pacific University of Technology &amp; Innovation</span><span>Tel: +603 8996 1000 &nbsp;|&nbsp; Email: apugolfclub@apu.edu.my</span></div></div>
+<header class="site-header"><div class="container navbar">
+<a href="index.html" class="brand"><img class="logo" src="images/GOLFCLUB.png" alt="APU Golf Club logo"><span><h1>APU Golf Club</h1><small>Asia Pacific University</small></span></a>
+<button class="nav-toggle" aria-label="Toggle menu">Menu</button>
+<nav><ul class="nav-links">
+<li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li><li><a href="rules.html">Rules</a></li><li><a href="equipment.html">Equipment</a></li><li><a href="calendar.html" class="active">Events</a></li><li><a href="news.html">News</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="membership.html">Membership</a></li><li><a href="bmi.html">BMI</a></li><li><a href="register.html">Join</a></li>
+</ul></nav></div></header>
+
+<section class="page-banner"><div class="container"><span class="crumb">Home / Events</span><h2>Calendar &amp; Events</h2><p>Plan your season with our full schedule of activities.</p></div></section>
+
+<section class="section"><div class="container">
+<div class="section-head"><span class="eyebrow">Season 2026</span><h2 class="section-title">Upcoming Events</h2>
+<div style="margin-top:14px;">
+<button class="btn btn-gold" onclick="filterEvents('all')">All</button>
+<button class="btn btn-light" onclick="filterEvents('coaching')" style="border:2px solid var(--green);">Coaching</button>
+<button class="btn btn-light" onclick="filterEvents('tournament')" style="border:2px solid var(--green);">Tournaments</button>
+<button class="btn btn-light" onclick="filterEvents('social')" style="border:2px solid var(--green);">Socials</button>
+</div>
+</div>
+
+<div class="cal-list" id="eventList">
+<h3 class="month">March 2026</h3>
+<div class="event-item" data-cat="social"><div class="date-badge"><div class="d">1</div><div class="m">Mar</div></div><div><h3>Freshmen Welcome Day</h3><p>10:00 AM &ndash; 1:00 PM &middot; Driving Range</p><p>A fun introduction to the club, the driving range and your new teammates. No experience needed.</p></div></div>
+<div class="event-item" data-cat="coaching"><div class="date-badge"><div class="d">8</div><div class="m">Mar</div></div><div><h3>Beginner Coaching Session</h3><p>5:00 PM &ndash; 7:00 PM &middot; APU Atrium</p><p>Learn grips, posture and a basic swing with our coaches.</p></div></div>
+<div class="event-item" data-cat="tournament"><div class="date-badge"><div class="d">22</div><div class="m">Mar</div></div><div><h3>Inter-Varsity Tournament</h3><p>7:30 AM Tee-Off &middot; TPC Kuala Lumpur</p><p>Represent APU against other universities in a friendly 18-hole competition.</p></div></div>
+<div class="event-item" data-cat="coaching"><div class="date-badge"><div class="d">29</div><div class="m">Mar</div></div><div><h3>Putting Practice Night</h3><p>6:00 PM &ndash; 8:00 PM &middot; Putting Green</p><p>Focused putting drills and friendly mini-competitions.</p></div></div>
+
+<h3 class="month">April 2026</h3>
+<div class="event-item" data-cat="social"><div class="date-badge"><div class="d">12</div><div class="m">Apr</div></div><div><h3>Golf 101 Workshop</h3><p>2:00 PM &ndash; 4:30 PM &middot; Lecture Hall B</p><p>Learn the basics of grips, stance and etiquette in this hands-on beginner workshop.</p></div></div>
+<div class="event-item" data-cat="tournament"><div class="date-badge"><div class="d">18</div><div class="m">Apr</div></div><div><h3>Intra-Club Monthly Medal</h3><p>8:00 AM Tee-Off &middot; Kota Permai GCC</p><p>Monthly stroke-play competition open to all members, all handicaps.</p></div></div>
+<div class="event-item" data-cat="social"><div class="date-badge"><div class="d">26</div><div class="m">Apr</div></div><div><h3>Networking Dinner</h3><p>6:00 PM &ndash; 9:00 PM &middot; APU Foyer</p><p>Meet alumni and golf industry professionals over dinner and refreshments.</p></div></div>
+
+<h3 class="month">May 2026</h3>
+<div class="event-item" data-cat="coaching"><div class="date-badge"><div class="d">3</div><div class="m">May</div></div><div><h3>Advanced Swing Clinic</h3><p>9:00 AM &ndash; 12:00 PM &middot; Driving Range</p><p>Improve your iron play and shot selection with focused coaching.</p></div></div>
+<div class="event-item" data-cat="tournament"><div class="date-badge"><div class="d">17</div><div class="m">May</div></div><div><h3>National University Championship</h3><p>6:30 AM Tee-Off &middot; TPC Kuala Lumpur</p><p>The highlight of the season &mdash; APU competes at national level.</p></div></div>
+</div>
+</div></section>
+
+<footer class="site-footer"><div class="container">
+<div class="footer-grid">
+<div><h4>APU Golf Club</h4><p>Asia Pacific University of Technology &amp; Innovation<br>Lot 6, Technology Park Malaysia<br>Bukit Jalil, 57000 Kuala Lumpur</p><p class="mt-1">Email: apugolfclub@apu.edu.my<br>IG: @apu.golf</p></div>
+<div><h4>Quick Links</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li><li><a href="rules.html">Rules</a></li><li><a href="equipment.html">Equipment</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="bmi.html">BMI</a></li></ul></div>
+<div><h4>Get Involved</h4><ul><li><a href="membership.html">Membership</a></li><li><a href="register.html">Join Now</a></li><li><a href="calendar.html">Events</a></li><li><a href="news.html">News</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+<div><h4>Forms</h4><ul><li><a href="register.html">Registration</a></li><li><a href="enquiry.html">Enquiry</a></li><li><a href="feedback.html">Feedback</a></li></ul></div>
+</div><div class="footer-bottom">&copy; 2026 APU Golf Club. All rights reserved.</div>
+</div></footer>
+
+<script>
+function filterEvents(cat){
+  var items = document.querySelectorAll('.event-item');
+  items.forEach(function(el){
+    if(cat === 'all' || el.getAttribute('data-cat') === cat){
+      el.style.display = 'flex';
+    } else {
+      el.style.display = 'none';
+    }
+  });
+  var months = document.querySelectorAll('.cal-list .month');
+  months.forEach(function(m){ m.style.display = 'block'; });
+}
+</script>
+<script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BMI Calculator | APU Golf Club</title>
+<meta name="description" content="Calculate your Body Mass Index (BMI) with the APU Golf Club BMI Calculator and start your fitness journey.">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" type="image/png" href="images/GOLFCLUB.png">
+<style>
+  /* page-specific extras for BMI */
+  .bmi-result { margin-top: 20px; }
+  .bmi-score-box { text-align: center; padding: 18px; background: rgba(11,107,58,0.08); border-radius: 12px; border: 1px solid rgba(11,107,58,0.2); }
+  .bmi-label { font-size: .85rem; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); }
+  .bmi-score { font-size: 3.2rem; font-weight: 800; color: var(--green-dark); line-height: 1.1; }
+  .bmi-category { font-size: 1.15rem; font-weight: 700; }
+  .bmi-scale { margin-top: 16px; }
+  .scale-bar { display: flex; width: 100%; height: 64px; border-radius: 8px; overflow: hidden; }
+  .scale-segment { display: flex; align-items: center; justify-content: center; text-align: center; color: #fff; font-size: .68rem; font-weight: 600; line-height: 1.3; transition: transform .2s; }
+  .scale-segment span { pointer-events: none; }
+  .scale-segment.active { outline: 3px solid var(--ink); outline-offset: 2px; transform: scale(1.04); z-index: 2; }
+  .scale-segment.underweight { background: #3a7ca5; }
+  .scale-segment.normal { background: var(--green-light); }
+  .scale-segment.overweight { background: var(--gold); }
+  .scale-segment.obese { background: #c0392b; flex: 1.3; }
+</style>
+</head>
+<body>
+<div class="topbar"><div class="container"><span>Asia Pacific University of Technology &amp; Innovation</span><span>Tel: +603 8996 1000 &nbsp;|&nbsp; Email: apugolfclub@apu.edu.my</span></div></div>
+<header class="site-header"><div class="container navbar">
+<a href="index.html" class="brand"><img class="logo" src="images/GOLFCLUB.png" alt="APU Golf Club logo"><span><h1>APU Golf Club</h1><small>Asia Pacific University</small></span></a>
+<button class="nav-toggle" aria-label="Toggle menu">Menu</button>
+<nav><ul class="nav-links">
+<li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li><li><a href="rules.html">Rules</a></li><li><a href="equipment.html">Equipment</a></li><li><a href="calendar.html">Events</a></li><li><a href="news.html">News</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="membership.html">Membership</a></li><li><a href="bmi.html">BMI</a></li><li><a href="register.html">Join</a></li>
+</ul></nav></div></header>
+
+<section class="page-banner"><div class="container"><span class="crumb">Home / BMI Calculator</span><h2>BMI Calculator</h2><p>Know your numbers. Track your fitness journey with our Body Mass Index calculator.</p></div></section>
+
+<section class="section"><div class="container">
+<div class="section-head"><span class="eyebrow">Health &amp; Fitness</span><h2 class="section-title">Calculate Your BMI</h2><p class="section-sub">Body Mass Index (BMI) is a simple calculation that uses your weight and height to estimate body fat. Use it as a starting point for your fitness goals.</p></div>
+
+<div class="grid grid-2" style="align-items: start;">
+
+
+<!-- BMI Calculator Form -->
+<div class="card" style="padding: 30px;">
+<h3 style="color: var(--green-dark); margin-bottom: 20px;">Enter Your Details</h3>
+<form id="bmiForm">
+<div class="form-group">
+<label for="height">Height (cm)</label>
+<input type="number" id="height" placeholder="e.g., 170" min="100" max="250" required>
+</div>
+<div class="form-group">
+<label for="weight">Weight (kg)</label>
+<input type="number" id="weight" placeholder="e.g., 65" min="30" max="300" required>
+</div>
+<div class="form-group">
+<button type="submit" class="btn btn-gold" style="width: 100%;">Calculate BMI</button>
+</div>
+</form>
+
+<!-- BMI Result -->
+<div id="bmiResult" class="bmi-result" style="display: none;">
+<div class="bmi-score-box">
+<p class="bmi-label">Your BMI</p>
+<p class="bmi-score" id="bmiScore">--</p>
+<p class="bmi-category" id="bmiCategory">--</p>
+</div>
+<div class="bmi-scale">
+<div class="scale-bar">
+<div class="scale-segment underweight"><span>Underweight<br>&lt;18.5</span></div>
+<div class="scale-segment normal"><span>Normal<br>18.5-24.9</span></div>
+<div class="scale-segment overweight"><span>Overweight<br>25-29.9</span></div>
+<div class="scale-segment obese"><span>Obese<br>30+</span></div>
+</div>
+</div>
+<div id="bmiMessage" class="callout" style="margin-top: 20px;"></div>
+<div style="text-align: center; margin-top: 20px;">
+<a href="membership.html" class="btn btn-gold">Join Membership &amp; Start Training</a>
+</div>
+</div>
+</div>
+
+<!-- BMI Info Card -->
+<div class="card" style="padding: 30px;">
+<h3 style="color: var(--green-dark); margin-bottom: 20px;">Understanding BMI</h3>
+<div style="line-height: 1.8;">
+<p><strong>What is BMI?</strong></p>
+<p>BMI is a measurement that estimates body fat based on height and weight. It&rsquo;s a useful screening tool, though it doesn&rsquo;t directly measure body fat.</p>
+
+<div style="margin-top: 20px;">
+<p><strong>BMI Scale:</strong></p>
+<div class="scale-bar" style="height: 20px; margin-top: 8px;">
+<div class="scale-segment underweight">Underweight</div>
+<div class="scale-segment normal">Normal</div>
+<div class="scale-segment overweight">Overweight</div>
+<div class="scale-segment obese">Obese</div>
+</div>
+</div>
+
+<div style="margin-top: 20px;">
+<p><strong>BMI Categories for Adults:</strong></p>
+<ul class="info-list mt-1">
+<li><strong>Underweight:</strong> BMI less than 18.5</li>
+<li><strong>Normal weight:</strong> BMI 18.5 to 24.9</li>
+<li><strong>Overweight:</strong> BMI 25 to 29.9</li>
+<li><strong>Obesity:</strong> BMI 30 or greater</li>
+</ul>
+</div>
+
+<div class="callout" style="margin-top: 20px;">
+<strong>Note:</strong> BMI is a general indicator and may not apply to athletes, elderly, or pregnant individuals. For personalised health advice, consult a professional.
+</div>
+
+<div style="margin-top: 20px; padding: 12px 15px; background: var(--white); border: 1px solid #e2dccd; border-radius: 8px; font-size: .8rem; color: var(--muted);">
+<p><strong>Source &amp; Copyright:</strong> The Body Mass Index (BMI) formula and the BMI classification categories (&lt;18.5, 18.5&ndash;24.9, 25&ndash;29.9, 30+) used in this calculator are based on the standards published by the <strong>World Health Organization (WHO)</strong>. BMI is defined as a person&rsquo;s weight in kilograms divided by the square of their height in metres (kg/m&sup2;).</p>
+<p class="mt-1">&copy; World Health Organization. Content reproduced for educational purposes within the APU Golf Club. WHO material is distributed under the CC BY-NC-SA 3.0 IGO licence, unless otherwise noted.</p>
+</div>
+
+<div style="margin-top: 20px; padding: 15px; background: rgba(11,107,58,0.08); border-radius: 10px;">
+<p><strong>Golf &amp; Fitness</strong></p>
+<p style="font-size: 0.9rem;">Maintaining a healthy BMI can improve your golf game by increasing stamina, flexibility, and overall performance on the course. Join our club to access coaching and fitness programs!</p>
+</div>
+</div>
+</div>
+</div>
+</div></section>
+
+<footer class="site-footer"><div class="container">
+<div class="footer-grid">
+<div><h4>APU Golf Club</h4><p>Asia Pacific University of Technology &amp; Innovation<br>Lot 6, Technology Park Malaysia<br>Bukit Jalil, 57000 Kuala Lumpur</p><p class="mt-1">Email: apugolfclub@apu.edu.my<br>IG: @apu.golf</p></div>
+<div><h4>Quick Links</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li><li><a href="rules.html">Rules</a></li><li><a href="equipment.html">Equipment</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="bmi.html">BMI</a></li></ul></div>
+<div><h4>Get Involved</h4><ul><li><a href="membership.html">Membership</a></li><li><a href="register.html">Join Now</a></li><li><a href="calendar.html">Events</a></li><li><a href="news.html">News</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+<div><h4>Forms</h4><ul><li><a href="register.html">Registration</a></li><li><a href="enquiry.html">Enquiry</a></li><li><a href="feedback.html">Feedback</a></li></ul></div>
+</div><div class="footer-bottom">&copy; 2026 APU Golf Club. All rights reserved.</div>
+</div></footer>
+
+<script src="js/main.js"></script>
+
+<script>
+// ===== BMI Calculator =====
+document.getElementById('bmiForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const height = parseFloat(document.getElementById('height').value);
+    const weight = parseFloat(document.getElementById('weight').value);
+
+    if (height > 0 && weight > 0) {
+        // Reset any previous active segment
+        const segments = document.querySelectorAll('.scale-segment');
+        segments.forEach(function(seg) { seg.classList.remove('active'); });
+
+        // BMI = weight (kg) / height (m)^2
+        const heightInMeters = height / 100;
+        const bmi = weight / (heightInMeters * heightInMeters);
+        const bmiRounded = bmi.toFixed(1);
+
+        const scoreEl = document.getElementById('bmiScore');
+        const catEl = document.getElementById('bmiCategory');
+        const msgEl = document.getElementById('bmiMessage');
+        const resultBox = document.getElementById('bmiResult');
+
+        let category, categoryColor, message, tempSegment;
+
+        if (bmi < 18.5) {
+            category = 'Underweight';
+            categoryColor = '#3a7ca5';
+            message = '<strong>Tip:</strong> Consider increasing your caloric intake with nutritious foods and adding strength training to build muscle mass.';
+            tempSegment = document.querySelector('.scale-segment.underweight');
+        } else if (bmi < 25) {
+            category = 'Normal Weight';
+            categoryColor = 'var(--green-light)';
+            message = '<strong>Great job!</strong> You are in the healthy weight range. Maintain your active lifestyle with regular golf and exercise.';
+            tempSegment = document.querySelector('.scale-segment.normal');
+        } else if (bmi < 30) {
+            category = 'Overweight';
+            categoryColor = 'var(--gold)';
+            message = '<strong>Tip:</strong> A balanced diet and regular cardio will help. Our club offers coaching and fitness programs to support you.';
+            tempSegment = document.querySelector('.scale-segment.overweight');
+        } else {
+            category = 'Obese';
+            categoryColor = '#c0392b';
+            message = '<strong>Tip:</strong> We recommend consulting a healthcare provider. Our club can support you with beginner-friendly fitness programs.';
+            tempSegment = document.querySelector('.scale-segment.obese');
+        }
+
+        scoreEl.textContent = bmiRounded;
+        scoreEl.style.color = categoryColor;
+        catEl.textContent = category;
+        catEl.style.color = categoryColor;
+        msgEl.innerHTML = message;
+        if (tempSegment) { tempSegment.classList.add('active'); }
+
+        resultBox.style.display = 'block';
+        resultBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register | APU Golf Club</title>
+<meta name="description" content="Registration form to join the APU Golf Club.">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" type="image/png" href="images/GOLFCLUB.png">
+</head>
+<body>
+<div class="topbar"><div class="container"><span>Asia Pacific University of Technology &amp; Innovation</span><span>Tel: +603 8996 1000 &nbsp;|&nbsp; Email: apugolfclub@apu.edu.my</span></div></div>
+<header class="site-header"><div class="container navbar">
+<a href="index.html" class="brand"><img class="logo" src="images/GOLFCLUB.png" alt="APU Golf Club logo"><span><h1>APU Golf Club</h1><small>Asia Pacific University</small></span></a>
+<button class="nav-toggle" aria-label="Toggle menu">Menu</button>
+<nav><ul class="nav-links">
+<li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li><li><a href="rules.html">Rules</a></li><li><a href="equipment.html">Equipment</a></li><li><a href="calendar.html">Events</a></li><li><a href="news.html">News</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="membership.html">Membership</a></li><li><a href="bmi.html">BMI</a></li><li><a href="register.html" class="active">Join</a></li>
+</ul></nav></div></header>
+
+<section class="page-banner"><div class="container"><span class="crumb">Home / Registration</span><h2>Club Registration</h2><p>Fill in the form to join the APU Golf Club.</p></div></section>
+
+<section class="section"><div class="container">
+<div class="grid grid-2" style="align-items:start;">
+<div>
+<div class="section-head" style="text-align:left;"><span class="eyebrow">Join now</span><h2 class="section-title">Registration Form</h2></div>
+<form class="card" id="regForm" onsubmit="return submitRegistration(event)">
+<div class="form-row"><div class="form-group"><label>Full Name <span class="req">*</span></label><input type="text" id="rName" required></div>
+<div class="form-group"><label>Student ID <span class="req">*</span></label><input type="text" id="rId" required></div></div>
+<div class="form-row"><div class="form-group"><label>Email <span class="req">*</span></label><input type="email" id="rEmail" required></div>
+<div class="form-group"><label>Phone <span class="req">*</span></label><input type="tel" id="rPhone" required></div></div>
+<div class="form-row"><div class="form-group"><label>Intake / Programme</label><input type="text" id="rProgram"></div>
+<div class="form-group"><label>Membership Tier <span class="req">*</span></label><select id="rTier" required><option value="">Select tier...</option><option>Casual (RM 20)</option><option>Active Member (RM 50)</option><option>Competitive (RM 80)</option></select></div></div>
+<div class="form-group"><label>Golf Experience</label>
+<div class="radio-inline"><input type="radio" name="exp" value="Beginner" checked> <label>Beginner</label></div>
+<div class="radio-inline"><input type="radio" name="exp" value="Intermediate"> <label>Intermediate</label></div>
+<div class="radio-inline"><input type="radio" name="exp" value="Advanced"> <label>Advanced</label></div></div>
+<div class="form-group"><label>Own Equipment?</label>
+<div class="radio-inline"><input type="radio" name="equip" value="Yes" checked> <label>Yes</label></div>
+<div class="radio-inline"><input type="radio" name="equip" value="Need Rental"> <label>Need Club Rental</label></div></div>
+<div class="form-group"><label>Additional Notes</label><textarea id="rNotes" rows="3"></textarea></div>
+<button type="submit" class="btn btn-gold">Submit Registration</button>
+<div class="form-msg" id="regResult"></div>
+</form>
+</div>
+<div>
+<div class="section-head" style="text-align:left;"><span class="eyebrow">What happens next</span><h2 class="section-title">After You Apply</h2></div>
+<div class="card" style="padding:24px;">
+<ul class="info-list">
+<li>You will receive a confirmation email within 2 working days.</li>
+<li>Pay your membership fee via the club email to activate your place.</li>
+<li>You will be added to the member community group and newsletter.</li>
+<li>Welcome pack and event invitations will follow shortly.</li>
+</ul>
+<div class="callout">Questions before applying? Send an enquiry using our <a href="enquiry.html" style="text-decoration:underline; color:var(--green-dark);"><strong>enquiry form</strong></a>.</div>
+</div>
+</div>
+</div>
+</div></section>
+
+<footer class="site-footer"><div class="container">
+<div class="footer-grid">
+<div><h4>APU Golf Club</h4><p>Asia Pacific University of Technology &amp; Innovation<br>Lot 6, Technology Park Malaysia<br>Bukit Jalil, 57000 Kuala Lumpur</p><p class="mt-1">Email: apugolfclub@apu.edu.my<br>IG: @apu.golf</p></div>
+<div><h4>Quick Links</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li><li><a href="rules.html">Rules</a></li><li><a href="equipment.html">Equipment</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="bmi.html">BMI</a></li></ul></div>
+<div><h4>Get Involved</h4><ul><li><a href="membership.html">Membership</a></li><li><a href="register.html">Join Now</a></li><li><a href="calendar.html">Events</a></li><li><a href="news.html">News</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+<div><h4>Forms</h4><ul><li><a href="register.html">Registration</a></li><li><a href="enquiry.html">Enquiry</a></li><li><a href="feedback.html">Feedback</a></li></ul></div>
+</div><div class="footer-bottom">&copy; 2026 APU Golf Club. All rights reserved.</div>
+</div></footer>
+
+<script>
+function submitRegistration(e){
+  e.preventDefault();
+  var name=document.getElementById('rName').value.trim();
+  var id=document.getElementById('rId').value.trim();
+  var email=document.getElementById('rEmail').value.trim();
+  var phone=document.getElementById('rPhone').value.trim();
+  var tier=document.getElementById('rTier').value;
+  var exp=''; document.querySelectorAll('input[name=exp]').forEach(function(r){ if(r.checked) exp=r.value; });
+  var res=document.getElementById('regResult');
+  if(!name||!id||!email||!phone||!tier){ res.className='form-msg err'; res.textContent='Please fill in all required fields.'; return false; }
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ res.className='form-msg err'; res.textContent='Please enter a valid email address.'; return false; }
+  res.className='form-msg ok';
+  res.textContent='Thank you, '+name+'! Your registration for the '+tier+' tier has been received. We will contact you at '+email+' shortly.';
+  document.getElementById('regForm').reset();
+  return false;
+}
+</script>
+<script src="js/main.js"></script>
+</body>
+</html>
