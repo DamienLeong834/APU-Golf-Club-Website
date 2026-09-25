@@ -92,7 +92,36 @@ img { max-width: 100%; display: block; }
   background: var(--white);
   color: var(--green-dark);
 }
-.nav-toggle { display: none; background: none; border: 2px solid #fff; color: #fff; border-radius: 6px; font-size: 1.2rem; padding: 4px 10px; cursor: pointer; }
+/* ---- hamburger toggle (mobile only, activated in the 640px query below) ---- */
+.nav-toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  transition: background-color var(--t-base) var(--ease);
+}
+.nav-toggle:hover { background: rgba(255,255,255,.14); }
+.nav-toggle:focus-visible { outline: 2px solid var(--gold-light); outline-offset: 2px; }
+.nav-toggle-bar {
+  display: block;
+  width: 26px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--white);
+  transition: transform var(--t-base) var(--ease), opacity var(--t-quick) var(--ease);
+}
+/* the three bars fold into an X while the menu is open */
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(2) { opacity: 0; }
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
 /* hero background, overlays the svg */
 .hero {
@@ -220,13 +249,18 @@ img { max-width: 100%; display: block; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 640px) {
-  .nav-toggle { display: block; }
+  .nav-toggle { display: flex; margin-left: auto; }
+  .navbar { flex-wrap: wrap; }
+  /* the dropdown wraps onto its own full-width row under the header */
+  .navbar > nav { width: 100%; }
   .nav-links {
     display: none; flex-direction: column; width: 100%;
     background: var(--green); padding: 10px; border-radius: 10px;
+    margin-top: 10px;
   }
   .nav-links.open { display: flex; }
-  .navbar { flex-wrap: wrap; }
+  /* full-width rows = bigger tap targets on touch screens */
+  .nav-links a { display: block; padding: 12px 14px; }
   .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr; }
   .section { padding: 44px 0; }
